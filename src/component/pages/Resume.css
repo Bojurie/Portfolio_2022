@@ -1,0 +1,17 @@
+.about_header {
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  background-color: green !important;
+
+}
+
+.resume_wrapper {
+  display: flex;
+  background-color: black;
+}
+
+.resume_wrapper Header {
+  background-color: blue;
+}
