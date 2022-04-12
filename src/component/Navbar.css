@@ -74,4 +74,13 @@ a {
   .logo {
     padding: 20px 5px;
   }
+
+  .menuNav.showMenu {
+    width: 60%;
+    height: 53%;
+  }
+
+  .menuNav.showMenu li a {
+    padding: 25px;
+  }
 }

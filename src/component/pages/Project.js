@@ -25,68 +25,68 @@ const Project = ()=> {
   return (
     <div className='project'>
       <div className='container'>
-        <div className='project-wrapper'>
-          <div className='project-content'>
+        <section className='project-wrapper'>
+          <div className='project-content-wrapper'>
               <h1><span className='span'>3.</span> Past Projects</h1>
               <div className='project-content'>
              
                 <div className='box'>
                    <video 
-                      className='clip ' ref={ref}>
-                      <source src={video2} type='video/mp4' play muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                      className='clip ' ref={ref} autoplay loop muted playsinline type='video/mp4' onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}>
+                      <source src={video2}  />
                    </video>
                 </div>
 
                 <div className='box'>
                  <video className='clip' ref={ref}>
-                    <source src={video8} type='video/mp4' muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                    <source src={video8} type='video/mp4' playsinline muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
                  </video>
                 </div>
 
                 <div className='box'>
-                 <video className='clip' ref={ref} >
-                    <source src={video6} type='video/mp4' muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                 <video className='clip' ref={ref} type='video/mp4' playsinline muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}>
+                    <source src={video6} />
                  </video>
                 </div>
 
                 <div className='box' >
-                  <video className='clip' ref={ref}>
-                    <source src={video} type='video/mp4' muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                  <video className='clip' ref={ref} type='video/mp4' playsinline muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}>
+                    <source src={video} />
                   </video>
                 </div>
 
                 <div className='box'>
-                  <video className='clip' ref={ref}>
-                    <source src={video4} type='video/mp4' muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                  <video className='clip' ref={ref} type='video/mp4' playsinline muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}>
+                    <source src={video4} />
                   </video>
                 </div>
 
                 <div className='box'>
-                  <video className='clip' ref={ref}>
-                    <source src={video5} type='video/mp4' muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                  <video className='clip' ref={ref} type='video/mp4' playsinline muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}>
+                    <source src={video5} />
                   </video>
                 </div>
 
                 <div className='box'>
-                 <video className='clip' ref={ref}>
-                  <source src={video3} type='video/mp4' muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                 <video className='clip' ref={ref} type='video/mp4' playsinline muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}>
+                  <source src={video3} />
                  </video>
                 </div>
 
                 <div className='box'>
-                  <video className='clip' ref={ref}>
-                    <source src={video7} type='video/mp4' muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                  <video className='clip' ref={ref} type='video/mp4' playsinline muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}>
+                    <source src={video7} />
                   </video>
                 </div>
 
                 <div className='box'>
-                  <video className='clip' ref={ref}>
-                    <source src={video1} type='video/mp4' muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}/>
+                  <video className='clip' ref={ref} type='video/mp4' playsinline muted loop onMouseEnter={handlePlayVideo} onMouseLeave={handlePauseVideo}>
+                    <source src={video1} />
                   </video>
                 </div>
               </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   )

@@ -9,7 +9,7 @@ const Hero = () => {
       <div className='hero-container'>
         <div className='hero-wrapper'>
             <div className='hero' >
-                <video autoPlay loop muted id='video'>
+                <video autoPlay loop playsinline muted id='video'>
                   <source src={backgroundVideo}/>
                 </video>
                 <div className='hero-content'>

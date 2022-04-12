@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faInstagram,
-  faGithub
+  faGithub,
+  faLinkedinIn
 } from "@fortawesome/free-brands-svg-icons";
 import './SocialFollow.css';
 
@@ -11,10 +12,10 @@ const SocialFollow = () => {
   return (
     <div class="social-container">
       <h3>Social Follow</h3>
-      {/* <a href="https://www.youtube.com/c/jamesqquick"
-        className="youtube social" target='_blank' rel="noopener noreferrer">
-        <FontAwesomeIcon icon={faYoutube} size="2x" />
-      </a> */}
+      <a href="https://www.linkedin.com/in/bojurie-rogers-wright/"
+        className="linkedin social" target='_blank' rel="noopener noreferrer">
+        <FontAwesomeIcon icon={faLinkedinIn} size="2x" />
+      </a>
 
        <a href="https://www.facebook.com/bojurie.rogers/"
         className="facebook social" target='_blank' rel="noopener noreferrer">

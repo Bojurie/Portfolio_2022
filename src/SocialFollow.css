@@ -29,6 +29,7 @@ a.social:hover {
 @media screen and (max-width: 414px) {
   a.social {
     font-size: 14px;
+    margin: 0;
   }
 
   .social-container {

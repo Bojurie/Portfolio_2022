@@ -25,7 +25,7 @@ const sendEmail = (e) =>{
   const [submitted, setSubmitted ] = useState(false);
 
   return (
-    <div className='contact'>
+    <section className='contact'>
       <div className='container'>
         <div className='contact-header'>
             <h1><span className='span'>4.</span> Contact</h1>
@@ -74,7 +74,7 @@ const sendEmail = (e) =>{
         </div>
        
       </div>
-    </div> 
+    </section> 
   )
 }
 
