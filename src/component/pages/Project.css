@@ -44,7 +44,7 @@
   position: relative;
   padding: 0 5px;
   width: 30%;
-  height: 30%;
+  /* height: 30%; */
   filter: grayscale(1);
   border: 1px solid #000;
 }
@@ -62,6 +62,10 @@
   /* height: 100%; */
   object-fit: fill;
 
+}
+
+.box-img {
+  display: none;
 }
 
 /* #video {
@@ -100,10 +104,20 @@
     height: auto; */
   }
 
-  .box video {}
+  .box-img {
+    display: block;
+  }
+
+  /* .box video {
+    display: none;
+  } */
+
+  .clip {
+    display: none;
+  }
 
   .container {
-    padding: 40px 46px;
+    padding: 40px !important;
   }
 
 

@@ -141,16 +141,25 @@ span {
     display: grid;
   }
 
+  input {
+    width: 25;
+  }
+
   .email {
     display: grid;
   }
+
+  /* .email input {
+    width: auto;
+  } */
 
   .message {
     display: grid;
   }
 
   .message textarea {
-    width: auto;
+    width: 300px;
+    height: 150px;
   }
 
   .message-heading h2 {

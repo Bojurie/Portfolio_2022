@@ -112,11 +112,26 @@ img {
 
   img {
     width: 100%;
+    padding: 0;
   }
+
+  .about-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .about-content p {
+    padding: 0 15px;
+    text-align: inherit;
+  }
+
+  .about-img {}
+
+  .about-wrapper {}
 
   .technologies {
     padding: 0;
-    margin-left: 0;
   }
 }
 

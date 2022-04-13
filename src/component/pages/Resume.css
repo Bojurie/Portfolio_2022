@@ -27,7 +27,7 @@
     max-width: 100%;
   }
 
-  .container {
+  .resume-wrapper .container {
     padding: 0 10px !important;
   }
 }
