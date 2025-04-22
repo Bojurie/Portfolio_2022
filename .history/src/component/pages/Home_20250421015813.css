@@ -1,0 +1,15 @@
+.home {
+  scroll-behavior: smooth;
+  /* background-color: #fff; */
+  color: #000;
+}
+
+section {
+  margin-bottom: 5rem;
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    margin-bottom: 3rem;
+  }
+}

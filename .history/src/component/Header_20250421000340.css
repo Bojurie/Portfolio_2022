@@ -1,0 +1,15 @@
+.header {
+  height: 100px;
+  background-color: black;
+  width: 100%;
+}
+
+@media screen and (max-width: 414) {
+  .header {
+    height: auto;
+  }
+
+  .Navbar .logo {
+    padding: 0;
+  }
+}

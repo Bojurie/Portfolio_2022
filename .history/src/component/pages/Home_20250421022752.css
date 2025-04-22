@@ -1,0 +1,13 @@
+.home {
+  scroll-behavior: smooth;
+  /* background-color: #fff; */
+  color: #000;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  section {
+    margin-bottom: 3rem;
+  }
+}

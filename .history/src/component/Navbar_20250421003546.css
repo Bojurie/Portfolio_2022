@@ -1,0 +1,78 @@
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  color: white;
+}
+
+.logo {
+  padding: 10px;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+.menuNav {
+  display: flex;
+  list-style: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.menuNav li {
+  padding: 10px 20px;
+}
+
+.menuNav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.menuNav a:hover {
+  color: rgb(50, 185, 32);
+  transition: 0.3s;
+}
+
+.resume {
+  border: 1px solid white;
+  padding: 5px 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .menuNav {
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .menuNav.showMenu {
+    max-height: 100vh;
+    padding-bottom: 20px;
+  }
+
+  .menuNav li {
+    text-align: center;
+    width: 100%;
+  }
+}

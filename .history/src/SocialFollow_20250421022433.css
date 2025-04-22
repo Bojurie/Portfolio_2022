@@ -1,0 +1,31 @@
+.social-container {
+  padding: 10px 0;
+}
+
+.social-container h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #32b920;
+}
+
+a.social {
+  margin: 0 0.75rem;
+  transition: transform 250ms ease, color 250ms ease;
+  display: inline-block;
+  color: #32b920;
+}
+
+a.social:hover {
+  transform: translateY(-4px);
+  color: white;
+}
+
+@media screen and (max-width: 414px) {
+  .social-container h3 {
+    font-size: 1rem;
+  }
+
+  a.social {
+    margin: 0 0.5rem;
+  }
+}

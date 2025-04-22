@@ -1,0 +1,84 @@
+.resume-section {
+  background-color: #000;
+  color: #fff;
+  padding: 80px 20px;
+  min-height: 100vh;
+}
+
+.resume-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.resume-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #32b920;
+  margin-bottom: 2rem;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.pdf-viewer {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: #000;
+}
+
+.pdf-viewer p {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.react-pdf__Page__canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .resume-title {
+    font-size: 2rem;
+  }
+
+  .pdf-viewer {
+    padding: 1rem;
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .resume-title {
+    font-size: 1.6rem;
+  }
+
+  .download-btn .ui.button {
+    font-size: 0.9rem;
+  }
+
+  .pdf-viewer {
+    padding: 1rem;
+  }
+
+  .nav-buttons .ui.button {
+    width: 100%;
+  }
+}

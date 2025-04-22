@@ -1,0 +1,93 @@
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 100px;
+  color: white;
+  position: relative;
+  background-color: #000;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  display: none;
+}
+
+/* Desktop Menu */
+.nav-links-desktop {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links-desktop li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links-desktop li a:hover {
+  color: #32b920;
+}
+
+.resume a {
+  border: 1px solid white;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+/* Mobile Menu */
+.nav-links-mobile {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  background-color: #000;
+  overflow: hidden;
+  z-index: 10;
+  padding: 1rem 0;
+}
+
+.nav-links-mobile li {
+  padding: 1rem;
+  text-align: center;
+}
+
+.nav-links-mobile li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.nav-links-mobile li a:hover {
+  color: #32b920;
+}
+
+/* Show Toggle & Hide Desktop Links on Mobile */
+@media screen and (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links-desktop {
+    display: none;
+  }
+}
