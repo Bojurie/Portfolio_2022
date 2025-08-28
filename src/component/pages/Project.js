@@ -9,47 +9,31 @@ import {
 } from "react-icons/fi";
 import "./Project.css";
 
-// Video imports
-const videos = Array(9)
-  .fill()
-  .map((_, i) =>
-    require(`../videos/Screen Recording 2022-04-0${i < 8 ? i + 1 : 9} at ${
-      i < 4 ? "8" : "3"
-    }.${
-      i < 3
-        ? "22"
-        : i < 5
-        ? "25"
-        : i < 6
-        ? "27"
-        : i < 7
-        ? "28"
-        : i < 8
-        ? "30"
-        : "48"
-    }.${
-      i < 2
-        ? "57"
-        : i < 3
-        ? "20"
-        : i < 4
-        ? "25"
-        : i < 5
-        ? "28"
-        : i < 6
-        ? "35"
-        : i < 7
-        ? "37"
-        : i < 8
-        ? "30"
-        : "52"
-    }.mov`)
-  );
+const videos = [
+  require("../videos/Screen Recording 2022-04-01 at 8.22.57 PM.mov"),
+  require("../videos/Screen Recording 2022-04-01 at 8.23.25 PM.mov"),
+  require("../videos/Screen Recording 2022-04-01 at 8.25.20 PM.mov"),
+  require("../videos/Screen Recording 2022-04-01 at 8.27.28 PM.mov"),
+  require("../videos/Screen Recording 2022-04-01 at 8.28.35 PM.mov"),
+  require("../videos/Screen Recording 2022-04-01 at 8.30.37 PM.mov"),
+  require("../videos/Screen Recording 2022-04-01 at 8.34.30 PM.mov"),
+  require("../videos/Screen Recording 2022-04-03 at 3.51.52 AM.mov"),
+  require("../videos/Screen Recording 2022-04-03 at 3.48.52 AM.mov"),
+];
 
-// Image imports
-const images = Array(9)
-  .fill()
-  .map((_, i) => require(`../images/${i + 1}.png`));
+// Import all images with require()
+const images = [
+  require("../images/1.png"),
+  require("../images/2.png"),
+  require("../images/3.png"),
+  require("../images/4.png"),
+  require("../images/5.png"),
+  require("../images/6.png"),
+  require("../images/7.png"),
+  require("../images/8.png"),
+  require("../images/9.png"),
+];
+
 
 const projects = [
   {
@@ -178,7 +162,6 @@ const Project = () => {
       await Promise.all(imageLoadPromises);
     };
 
-    // Preload first 3 videos
     const loadVideos = async () => {
       const videoLoadPromises = filteredProjects.slice(0, 3).map((project) => {
         return new Promise((resolve) => {
