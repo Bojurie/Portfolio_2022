@@ -1,0 +1,243 @@
+@import './styles/variables.scss';
+@import './styles/mixins';
+
+.social-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl);
+  width: 100%;
+}
+
+.social-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+  
+  @include mobile {
+    font-size: var(--text-xl);
+    letter-spacing: 1px;
+  }
+}
+
+.highlight {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: textShine 3s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes textShine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  justify-content: center;
+  
+  @include mobile {
+    gap: var(--spacing-md);
+  }
+}
+
+.social-link {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background: var(--bg-surface);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-primary);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  
+  @include mobile {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  &:hover::before {
+    transform: translateX(100%);
+  }
+}
+
+.social-icon-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-tooltip {
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  opacity: 0;
+  transition: all var(--transition-normal);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+  border: 1px solid var(--border-primary);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-primary);
+    border-left: 1px solid var(--border-primary);
+    transform: rotate(45deg) translateX(-50%);
+  }
+}
+
+.social-link:hover .social-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.social-pulse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--social-color);
+  opacity: 0;
+  animation: pulse 2s infinite;
+  
+  @include reduced-motion {
+    animation: none;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+// Hover effect for specific social colors
+.social-link:hover {
+  .social-icon-wrapper {
+    animation: bounce 0.5s ease;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+// Dark mode specific adjustments
+html[data-theme="dark"] {
+  .social-link {
+    background: rgba(255, 255, 255, 0.05);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// Light mode specific adjustments
+html[data-theme="light"] {
+  .social-link {
+    background: rgba(0, 0, 0, 0.03);
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.06);
+    }
+  }
+  
+  .social-tooltip {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    
+    &::before {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-primary);
+      border-left: 1px solid var(--border-primary);
+    }
+  }
+}
+
+// Reduced motion support
+@include reduced-motion {
+  .social-link {
+    transition: none;
+    
+    &::before {
+      transition: none;
+    }
+  }
+  
+  .social-tooltip {
+    transition: none;
+  }
+  
+  .highlight {
+    animation: none;
+  }
+  
+  .social-link:hover {
+    .social-icon-wrapper {
+      animation: none;
+    }
+  }
+}

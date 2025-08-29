@@ -1,0 +1,201 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.footer {
+  background: linear-gradient(180deg, transparent 0%, var(--bg-secondary) 20%);
+  padding: var(--spacing-3xl) var(--spacing-xl) var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border-primary);
+  
+  @include mobile {
+    padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-lg);
+  }
+}
+
+.footer-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  position: relative;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xl);
+  
+  @include mobile {
+    gap: var(--spacing-xl);
+  }
+}
+
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.footer-copyright {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-align: center;
+  font-weight: var(--font-light);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  
+  @include mobile {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--text-xs);
+  transition: all var(--transition-normal);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--primary-400);
+    transition: width var(--transition-normal);
+  }
+  
+  &:hover {
+    color: var(--text-primary);
+    
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.divider {
+  color: var(--text-muted);
+  opacity: 0.5;
+  
+  @include mobile {
+    display: none;
+  }
+}
+
+.footer-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform-origin: left center;
+}
+
+.glow-bar {
+  height: 100%;
+  width: 100%;
+  background: var(--gradient-primary);
+  opacity: 0.7;
+  filter: blur(5px);
+  animation: gradientShift 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+// Animation for the glow bar
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Floating particles effect
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(1px 1px at 20% 30%, var(--text-muted) 1px, transparent 50%),
+    radial-gradient(1px 1px at 40% 70%, var(--text-muted) 1px, transparent 50%),
+    radial-gradient(1px 1px at 60% 80%, var(--text-muted) 1px, transparent 50%),
+    radial-gradient(1px 1px at 80% 10%, var(--text-muted) 1px, transparent 50%),
+    radial-gradient(1px 1px at 90% 50%, var(--text-muted) 1px, transparent 50%);
+  background-size: 200px 200px;
+  animation: floatParticles 20s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+@keyframes floatParticles {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(-100px) translateX(50px);
+  }
+}
+
+// Dark mode specific adjustments
+html[data-theme="dark"] {
+  .footer {
+    background: linear-gradient(180deg, transparent 0%, var(--bg-secondary) 20%);
+    
+    &::before {
+      opacity: 0.15;
+    }
+  }
+  
+  .glow-bar {
+    opacity: 0.8;
+  }
+}
+
+// Light mode specific adjustments
+html[data-theme="light"] {
+  .footer {
+    background: linear-gradient(180deg, transparent 0%, var(--bg-secondary) 20%);
+    
+    &::before {
+      opacity: 0.08;
+    }
+  }
+  
+  .glow-bar {
+    opacity: 0.6;
+  }
+}
+
+// Reduced motion support
+@include reduced-motion {
+  .glow-bar {
+    animation: none;
+  }
+  
+  .footer::before {
+    animation: none;
+  }
+  
+  .footer-links a {
+    &::after {
+      transition: none;
+    }
+  }
+}

@@ -1,4 +1,3 @@
-// src/component/pages/Project.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -138,7 +137,18 @@ const Project = () => {
   const [videosLoaded, setVideosLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const videoRefs = useRef([]);
-  const modalRef = useRef(null);
+  const modalRef = useRef();
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const filteredProjects =
     activeCategory === "All"
@@ -149,14 +159,6 @@ const Project = () => {
   const remainingProjects = filteredProjects.slice(5);
 
   useEffect(() => {
-    // Check if device is mobile
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-
     // Preload images
     const loadImages = async () => {
       const imageLoadPromises = images.map((img, index) => {
@@ -167,7 +169,7 @@ const Project = () => {
             setLoadedImages((prev) => ({ ...prev, [index]: true }));
             resolve();
           };
-          image.onerror = resolve; // Don't fail the whole promise if one image fails
+          image.onerror = resolve;
         });
       });
       await Promise.all(imageLoadPromises);
@@ -180,7 +182,7 @@ const Project = () => {
           video.src = project.video;
           video.preload = "auto";
           video.onloadeddata = resolve;
-          video.onerror = resolve; // Don't fail the whole promise if one video fails
+          video.onerror = resolve;
         });
       });
       await Promise.all(videoLoadPromises);
@@ -190,14 +192,18 @@ const Project = () => {
     loadImages();
     loadVideos();
 
-    // Close modal on escape key press
-    const handleEscapeKey = (e) => {
+    return () => {
+      videoRefs.current = [];
+    };
+  }, [filteredProjects]);
+
+  useEffect(() => {
+    const handleEscape = (e) => {
       if (e.key === "Escape") {
         closeProjectModal();
       }
     };
 
-    // Close modal when clicking outside
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
         closeProjectModal();
@@ -205,17 +211,15 @@ const Project = () => {
     };
 
     if (showAllProjects) {
-      document.addEventListener("keydown", handleEscapeKey);
+      document.addEventListener("keydown", handleEscape);
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      videoRefs.current = [];
-      window.removeEventListener("resize", checkIsMobile);
-      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("keydown", handleEscape);
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [filteredProjects, showAllProjects]);
+  }, [showAllProjects]);
 
   const handleVideoHover = (index, action) => {
     if (isMobile) return; // Disable hover effects on mobile
@@ -255,27 +259,11 @@ const Project = () => {
     });
   };
 
-  // Handle touch events for mobile swipe navigation
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 50) {
-      // Left swipe
-      navigateProject("next");
-    }
-
-    if (touchStart - touchEnd < -50) {
-      // Right swipe
-      navigateProject("prev");
+  const handleThumbnailClick = (index) => {
+    setCurrentProjectIndex(index);
+    // Smooth scroll to top of modal content
+    if (modalRef.current) {
+      modalRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -432,12 +420,12 @@ const Project = () => {
               <div className="modal-overlay" onClick={closeProjectModal} />
 
               <motion.div
+                ref={modalRef}
                 className="modal-content"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 50, opacity: 0 }}
                 transition={{ type: "spring", damping: 25 }}
-                ref={modalRef}
               >
                 <button className="modal-close-btn" onClick={closeProjectModal}>
                   <FiX />
@@ -454,17 +442,11 @@ const Project = () => {
                   <button
                     className="nav-arrow prev"
                     onClick={() => navigateProject("prev")}
-                    aria-label="Previous project"
                   >
                     <FiChevronLeft />
                   </button>
 
-                  <div
-                    className="modal-project-container"
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                  >
+                  <div className="modal-project-container">
                     {filteredProjects.map((project, index) => (
                       <div
                         className={`modal-project ${
@@ -528,7 +510,6 @@ const Project = () => {
                   <button
                     className="nav-arrow next"
                     onClick={() => navigateProject("next")}
-                    aria-label="Next project"
                   >
                     <FiChevronRight />
                   </button>
@@ -541,7 +522,7 @@ const Project = () => {
                         index === currentProjectIndex ? "active" : ""
                       }`}
                       key={index}
-                      onClick={() => setCurrentProjectIndex(index)}
+                      onClick={() => handleThumbnailClick(index)}
                     >
                       <img
                         src={project.img}

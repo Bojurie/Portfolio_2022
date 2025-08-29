@@ -1,4 +1,3 @@
-// SocialFollow.js
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -8,7 +7,7 @@ import {
   FiInstagram,
   FiMail,
 } from "react-icons/fi";
-import "./SocialFollow.css";
+import "./SocialFollow.scss";
 
 const SocialFollow = () => {
   const socialLinks = [
@@ -44,23 +43,48 @@ const SocialFollow = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+      },
+    },
+  };
+
   return (
     <motion.div
       className="social-container"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
     >
       <motion.h3
         className="social-title"
+        variants={itemVariants}
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
         CONNECT <span className="highlight">WITH ME</span>
       </motion.h3>
 
-      <div className="social-links">
+      <motion.div className="social-links" variants={containerVariants}>
         {socialLinks.map((social, index) => (
           <motion.a
             key={index}
@@ -68,29 +92,26 @@ const SocialFollow = () => {
             className="social-link"
             target="_blank"
             rel="noopener noreferrer"
+            variants={itemVariants}
             whileHover={{
-              y: -5,
-              scale: 1.1,
+              y: -8,
+              scale: 1.15,
               backgroundColor: `${social.color}20`,
-              boxShadow: `0 0 15px ${social.color}`,
+              boxShadow: `0 10px 25px ${social.color}40`,
             }}
             whileTap={{ scale: 0.9 }}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-              delay: index * 0.1,
+            style={{
+              color: social.color,
+              "--social-color": social.color,
             }}
-            style={{ color: social.color }}
             aria-label={social.name}
           >
-            {social.icon}
+            <span className="social-icon-wrapper">{social.icon}</span>
             <span className="social-tooltip">{social.name}</span>
+            <span className="social-pulse"></span>
           </motion.a>
         ))}
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

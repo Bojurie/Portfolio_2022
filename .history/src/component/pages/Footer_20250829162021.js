@@ -1,8 +1,6 @@
-// Footer.js
-import React from "react";
 import { motion } from "framer-motion";
 import SocialFollow from "../../SocialFollow";
-import "./Footer.css";
+import "./Footer.scss";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -30,16 +28,34 @@ const Footer = () => {
               © {year} Bojurie Rogers-Wright. All Rights Reserved.
             </p>
             <div className="footer-links">
-              <a href="/privacy">Privacy Policy</a>
+              <motion.a
+                href="/privacy"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Privacy Policy
+              </motion.a>
               <span className="divider">•</span>
-              <a href="/terms">Terms of Service</a>
+              <motion.a
+                href="/terms"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Terms of Service
+              </motion.a>
             </div>
           </motion.div>
         </div>
 
-        <div className="footer-accent">
+        <motion.div
+          className="footer-accent"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        >
           <div className="glow-bar"></div>
-        </div>
+        </motion.div>
       </div>
     </motion.footer>
   );

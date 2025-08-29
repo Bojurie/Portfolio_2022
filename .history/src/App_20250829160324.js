@@ -196,6 +196,8 @@ const App = () => {
       "data-theme",
       newDarkMode ? "dark" : "light"
     );
+
+    // Save preference to localStorage
     localStorage.setItem("darkMode", newDarkMode.toString());
   };
 
