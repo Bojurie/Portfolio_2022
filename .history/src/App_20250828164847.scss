@@ -1,0 +1,57 @@
+// src/App.scss
+
+// Import variables first
+@import './variables.scss';
+
+// Layout
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  padding-top: var(--nav-height); // Account for fixed header
+}
+
+// Mobile app-like experience
+@media (max-width: 768px) {
+  .app {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .main-content {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+// Basic reset styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Focus styles for accessibility
+*:focus {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 2px;
+}

@@ -1,0 +1,51 @@
+// Variables
+@import 'variables';
+@import 'mixins';
+@import 'animations';
+@import './';
+
+// Base styles
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/utilities';
+
+// Components
+@import 'components/header';
+@import 'components/navbar';
+@import 'components/footer';
+@import 'components/buttons';
+@import 'components/cards';
+
+// Pages
+@import 'pages/home';
+@import 'pages/about';
+@import 'pages/projects';
+@import 'pages/experience';
+@import 'pages/contact';
+@import 'pages/resume';
+
+// Layout
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+}
+
+// Mobile app-like experience
+@media (max-width: 768px) {
+  .app {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .main-content {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

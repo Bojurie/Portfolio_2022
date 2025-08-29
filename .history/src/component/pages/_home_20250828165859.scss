@@ -1,0 +1,35 @@
+
+@import "../../styles/variables";
+
+.home {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  
+  > section {
+    scroll-margin-top: calc(var(--nav-height) + var(--spacing-lg));
+    
+    @include mobile {
+      scroll-margin-top: calc(var(--nav-height) + var(--spacing-md));
+    }
+  }
+}
+
+// Smooth scrolling for mobile
+@include mobile {
+  .home {
+    scroll-behavior: smooth;
+    
+    // iOS specific smooth scrolling
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .home {
+    > section {
+      scroll-margin-top: var(--nav-height);
+    }
+  }
+}

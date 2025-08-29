@@ -1,0 +1,42 @@
+// src/component/header.scss
+@import '../styles/variables';
+@import '../styles/mixins';
+
+// ==========================================================================
+// Header Component Styles
+// ==========================================================================
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--z-fixed);
+  @include glass-effect;
+  transition: all var(--transition-normal);
+  
+  // Mobile-specific styles
+  @include mobile {
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  
+  // Scrolled state
+  &.scrolled {
+    background: rgba(15, 23, 42, 0.98);
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+// ==========================================================================
+// Reduced Motion Support
+// ==========================================================================
+
+@include reduced-motion {
+  .header {
+    transition: none;
+  }
+}

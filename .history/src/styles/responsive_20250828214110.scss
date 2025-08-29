@@ -1,0 +1,361 @@
+// src/styles/responsive-mixins.scss
+@import './variables';
+@import './mixins';
+
+// ==========================================================================
+// Mobile App Experience
+// ==========================================================================
+@mixin mobile-app-experience {
+  // Touch-friendly tap targets
+  .nav-link,
+  .btn,
+  .social-link,
+  .skill-item,
+  .project-card,
+  .tech-tag,
+  .theme-toggle,
+  .nav-toggle,
+  .tab-button,
+  .modal-project-link,
+  .view-more-btn {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    &:active {
+      transform: scale(0.97);
+      transition: transform var(--transition-fast);
+    }
+  }
+
+  // Form elements optimization
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px;
+    border-radius: var(--radius-md);
+    
+    &:focus {
+      @include focus-ring;
+    }
+  }
+
+  // Improved scrolling
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-top: calc(var(--nav-height-mobile) + var(--spacing-md));
+  }
+
+  body {
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  // Safe area insets
+  .app {
+    @include safe-area-padding;
+  }
+
+  // Main content adjustments
+  .main-content {
+    padding-top: var(--nav-height-mobile);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  // Enhanced touch feedback
+  .interactive-element {
+    transition: all var(--transition-fast);
+    
+    &:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+  }
+
+  // Swipe gestures
+  .swipe-container {
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  // Mobile navigation
+  .nav-mobile {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  // Image optimization
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  // Typography improvements
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+  }
+
+  p, li {
+    line-height: 1.6;
+    font-size: var(--text-base);
+  }
+}
+
+// ==========================================================================
+// Responsive Breakpoints
+// ==========================================================================
+@mixin mobile-responsive {
+  @include mobile {
+    @include mobile-app-experience;
+
+    // Container adjustments
+    .container {
+      padding: 0 var(--spacing-md);
+    }
+
+    // Typography
+    .section-title {
+      text-align: center;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    // Navigation
+    .nav {
+      height: var(--nav-height-mobile);
+      
+      &.scrolled {
+        height: calc(var(--nav-height-mobile) - 5px);
+      }
+    }
+
+    // Hero section
+    .hero-container {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+      text-align: center;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+      
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    // About section
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+    }
+
+    .about-image-wrapper {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    // Experience section
+    .timeline {
+      padding-left: var(--spacing-lg);
+    }
+
+    // Projects section
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+
+    .project-card {
+      aspect-ratio: 16/9;
+    }
+
+    // Forms
+    form {
+      padding: var(--spacing-md);
+    }
+
+    // Footer
+    .footer {
+      text-align: center;
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+      }
+    }
+
+    // Utility classes
+    .text-center-mobile {
+      text-align: center;
+    }
+    
+    .hide-mobile {
+      display: none !important;
+    }
+
+    // Modal optimizations
+    .modal-content {
+      width: 95%;
+      max-height: 90vh;
+    }
+
+    .modal-project-view {
+      flex-direction: column;
+    }
+
+    .modal-project-container {
+      order: -1;
+    }
+
+    .modal-project-links {
+      flex-direction: column;
+    }
+
+    .modal-projects-grid {
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+  }
+}
+
+@mixin tablet-responsive {
+  @include tablet {
+    // Grid adjustments
+    .about-grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--spacing-xl);
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    // Navigation
+    .nav-menu {
+      gap: var(--spacing-md);
+    }
+
+    // Container
+    .container {
+      padding: 0 var(--spacing-xl);
+    }
+
+    // Typography
+    .section-title {
+      font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    }
+
+    // Forms
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    // Modal
+    .modal-project-media {
+      height: 300px;
+    }
+  }
+}
+
+@mixin desktop-responsive {
+  @include desktop {
+    // Hover effects
+    .nav-link:hover .nav-indicator {
+      width: 100%;
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .social-link:hover {
+      transform: translateY(-2px);
+      color: var(--text-primary);
+    }
+
+    .skill-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    // Visibility utilities
+    .mobile-only {
+      display: none;
+    }
+    
+    .desktop-only {
+      display: block;
+    }
+
+    // Grid optimizations
+    .about-grid {
+      grid-template-columns: 1fr 1.5fr;
+      gap: var(--spacing-2xl);
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    // Navigation
+    .nav-menu {
+      gap: var(--spacing-lg);
+    }
+
+    // Hero section
+    .hero-container {
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--spacing-2xl);
+      text-align: left;
+    }
+
+    .hero-actions {
+      flex-direction: row;
+      justify-content: flex-start;
+      
+      .btn {
+        width: auto;
+      }
+    }
+  }
+}
+
+@mixin large-desktop-responsive {
+  @media (min-width: 1440px) {
+    .container {
+      max-width: 1400px;
+    }
+
+    .hero-container {
+      gap: var(--spacing-3xl);
+    }
+
+    .about-grid {
+      gap: var(--spacing-3xl);
+    }
+  }
+}
+
+// ==========================================================================
+// Apply All Responsive Breakpoints
+// ==========================================================================
+@include mobile-responsive;
+@include tablet-responsive;
+@include desktop-responsive;
+@include large-desktop-responsive;

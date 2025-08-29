@@ -1,0 +1,563 @@
+// src/App.scss
+
+// Import variables and mixins from the correct path
+@import './styles/variables';
+@import './styles/mixins';
+@import './styles/mobile-mixins';
+
+// ==========================================================================
+// Global Styles & Reset
+// ==========================================================================
+
+// CSS Reset and Base Styles
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  
+  @include mobile {
+    font-size: 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Selection styles
+::selection {
+  background: var(--primary-400);
+  color: var(--text-on-primary);
+}
+
+::-moz-selection {
+  background: var(--primary-400);
+  color: var(--text-on-primary);
+}
+
+// Scrollbar styles (webkit only)
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-600);
+  border-radius: var(--radius-full);
+  
+  &:hover {
+    background: var(--primary-500);
+  }
+}
+
+// ==========================================================================
+// Application Layout
+// ==========================================================================
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  
+  // Apply mobile app experience
+  @include mobile {
+    @include mobile-app-experience;
+  }
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  padding-top: var(--nav-height);
+  overflow-x: hidden;
+  
+  @include mobile {
+    padding-top: var(--nav-height-mobile);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+// ==========================================================================
+// Utility Classes
+// ==========================================================================
+
+// Focus styles for accessibility
+.focus-ring:focus {
+  @include focus-ring;
+}
+
+// Text utilities
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// Spacing utilities
+.mt-auto {
+  margin-top: auto;
+}
+
+.mb-auto {
+  margin-bottom: auto;
+}
+
+// Visibility utilities
+.sr-only {
+  @include visually-hidden;
+}
+
+// ==========================================================================
+// Animation Keyframes
+// ==========================================================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// ==========================================================================
+// Component Styles
+// ==========================================================================
+
+// Container component
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  
+  @include mobile {
+    padding: 0 var(--spacing-md);
+  }
+  
+  @include tablet {
+    padding: 0 var(--spacing-xl);
+  }
+}
+
+// Section component
+.section {
+  padding: var(--spacing-3xl) 0;
+  scroll-margin-top: calc(var(--nav-height) + var(--spacing-lg));
+  
+  @include mobile {
+    padding: var(--spacing-2xl) 0;
+    scroll-margin-top: calc(var(--nav-height-mobile) + var(--spacing-md));
+  }
+  
+  &-alt {
+    background: var(--bg-secondary);
+  }
+}
+
+// Card component
+.card {
+  @include card-base;
+  
+  &-header {
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-primary);
+  }
+  
+  &-body {
+    padding: var(--spacing-lg);
+  }
+  
+  &-footer {
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-primary);
+  }
+}
+
+// Button component
+.btn {
+  @include button-base;
+  
+  &-primary {
+    @include button-primary;
+  }
+  
+  &-secondary {
+    @include button-secondary;
+  }
+  
+  &-outline {
+    background: transparent;
+    border: 2px solid currentColor;
+    color: var(--text-primary);
+    
+    &:hover:not(:disabled) {
+      background: var(--bg-surface);
+    }
+  }
+}
+
+// ==========================================================================
+// Responsive Design
+// ==========================================================================
+
+// Mobile-first responsive design
+@include mobile {
+  // Mobile-specific overrides
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  .show-mobile {
+    display: block !important;
+  }
+  
+  // Mobile typography adjustments
+  h1 {
+    font-size: var(--text-3xl);
+  }
+  
+  h2 {
+    font-size: var(--text-2xl);
+  }
+  
+  h3 {
+    font-size: var(--text-xl);
+  }
+}
+
+// Tablet optimizations
+@include tablet {
+  .hide-tablet {
+    display: none !important;
+  }
+  
+  .show-tablet {
+    display: block !important;
+  }
+}
+
+// Desktop enhancements
+@include desktop {
+  .hide-desktop {
+    display: none !important;
+  }
+  
+  .show-desktop {
+    display: block !important;
+  }
+  
+  // Desktop-only hover effects
+  .nav-link:hover .nav-indicator {
+    width: 100%;
+    opacity: 1;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .social-link:hover {
+    transform: translateY(-2px);
+    color: var(--text-primary);
+  }
+}
+
+// ==========================================================================
+// Accessibility & Special Modes
+// ==========================================================================
+
+// Reduced motion support
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .card,
+  .btn,
+  .social-link {
+    transition: none !important;
+    
+    &:hover {
+      transform: none !important;
+    }
+  }
+}
+
+// High contrast support
+@include high-contrast {
+  .card {
+    border: 2px solid currentColor;
+  }
+  
+  .btn {
+    border: 2px solid currentColor;
+    
+    &-primary {
+      background: black;
+      color: white;
+      border-color: black;
+    }
+  }
+  
+  // Ensure good contrast in all states
+  :focus {
+    outline: 3px solid currentColor !important;
+    outline-offset: 2px;
+  }
+}
+
+// Dark mode adjustments
+@include dark-mode {
+  .card {
+    background: var(--bg-card);
+    border-color: var(--border-primary);
+  }
+  
+  .btn-outline {
+    border-color: var(--border-primary);
+    
+    &:hover {
+      background: var(--bg-surface);
+    }
+  }
+  
+  // Dark mode images
+  img {
+    filter: brightness(0.9) contrast(1.1);
+  }
+}
+
+// Print styles
+@media print {
+  .app {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .nav,
+  .footer,
+  .btn {
+    display: none !important;
+  }
+  
+  .main-content {
+    padding-top: 0;
+  }
+  
+  .section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    box-shadow: none !important;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
+  
+  // Ensure good print contrast
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+// ==========================================================================
+// Utility Mixins for Components
+// ==========================================================================
+
+// Gradient text utility
+.gradient-text {
+  @include gradient-text;
+}
+
+// Glass effect utility
+.glass-effect {
+  @include glass-effect;
+}
+
+// Truncation utilities
+.truncate {
+  @include truncate;
+}
+
+.truncate-2 {
+  @include multi-line-truncate(2);
+}
+
+.truncate-3 {
+  @include multi-line-truncate(3);
+}
+
+// Flex utilities
+.flex-center {
+  @include flex-center;
+}
+
+.flex-between {
+  @include flex-between;
+}
+
+.flex-column {
+  @include flex-column;
+}
+
+// Grid utilities
+.grid {
+  @include grid;
+}
+
+.grid-2 {
+  @include grid(2);
+}
+
+.grid-3 {
+  @include grid(3);
+}
+
+.grid-4 {
+  @include grid(4);
+}
+
+// Animation utilities
+.fade-in-up {
+  @include fade-in-up;
+}
+
+.scale-hover {
+  @include scale-hover;
+}
+
+.pulse {
+  @include pulse;
+}
+
+.float {
+  @include float;
+}
+
+// ==========================================================================
+// Mobile App Experience Overrides
+// ==========================================================================
+
+// Ensure mobile app experience is applied
+.mobile-app {
+  @include mobile-app-style;
+  
+  // Prevent user selection for app-like feel
+  -webkit-user-select: none;
+  user-select: none;
+  
+  // Optimize rendering
+  text-rendering: optimizeLegibility;
+}
+
+// Safe area utilities
+.safe-area {
+  @include safe-area-padding;
+}
+
+.safe-area-margin {
+  @include safe-area-margin;
+}
+
+// Touch feedback class
+.touch-feedback {
+  transition: transform var(--transition-fast);
+  
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+// Loading states
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  
+  &::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-primary);
+    border-top: 2px solid var(--primary-400);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

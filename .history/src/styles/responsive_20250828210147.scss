@@ -1,0 +1,78 @@
+@mixin mobile-app-experience {
+  .nav-link,
+  .btn,
+  .social-link {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  input,
+  select,
+  textarea {
+    font-size: 16px; // Prevents zoom on focus in iOS
+  }
+  
+  .app {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  // Enhanced touch feedback
+  .btn,
+  .nav-link,
+  .card {
+    transition: all var(--transition-fast);
+    
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+  
+  // Swipe gestures for mobile navigation
+  .nav-mobile {
+    touch-action: pan-y;
+  }
+}
+
+// Apply mobile app experience
+@include mobile {
+  @include mobile-app-experience;
+}
+
+// Tablet optimizations
+@include tablet {
+  .container {
+    padding: 0 var(--spacing-xl);
+  }
+  
+  .nav-menu {
+    gap: var(--spacing-md);
+  }
+}
+
+// Desktop enhancements
+@include desktop {
+  // Hover effects only on desktop
+  .nav-link:hover .nav-indicator {
+    width: 100%;
+    opacity: 1;
+  }
+  
+  .card {
+    transition: all var(--transition-normal);
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+  }
+}

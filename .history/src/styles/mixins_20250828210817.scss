@@ -1,0 +1,406 @@
+// src/styles/mixins.scss
+
+// ==========================================================================
+// Media Query Mixins
+@import '../styles/variables.scss';
+@import '../styles/mixins';
+// ==========================================================================
+@mixin mobile-app-experience {
+  // Touch-friendly tap targets (WCAG 2.1 AA compliant)
+  .nav-link,
+  .btn,
+  .social-link,
+  .skill-item,
+  .project-card,
+  .tech-tag,
+  .theme-toggle,
+  .nav-toggle,
+  .tab-button,
+  .modal-project-link,
+  .view-more-btn {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    // Enhanced touch feedback
+    &:active {
+      transform: scale(0.97);
+      transition: transform var(--transition-fast);
+    }
+  }
+
+  // Form elements optimization
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px; // Prevents zoom on focus in iOS
+    border-radius: var(--radius-md);
+    
+    &:focus {
+      @include focus-ring;
+    }
+  }
+
+  // Improved scrolling experience
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-top: calc(var(--nav-height-mobile) + var(--spacing-md));
+  }
+
+  body {
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  // Safe area insets for modern devices
+  .app {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  // Main content area adjustments
+  .main-content {
+    padding-top: var(--nav-height-mobile);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  // Enhanced touch feedback for interactive elements
+  .interactive-element {
+    transition: all var(--transition-fast);
+    
+    &:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+  }
+
+  // Swipe gestures optimization
+  .swipe-container {
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  // Mobile navigation specific styles
+  .nav-mobile {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    
+    // Prevent body scroll when mobile nav is open
+    &.open ~ .app {
+      overflow: hidden;
+      height: 100vh;
+    }
+  }
+
+  // Optimize images for mobile
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  // Mobile-specific typography improvements
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3;
+  }
+
+  p, li {
+    line-height: 1.6;
+    font-size: var(--text-base);
+  }
+
+  // Reduce motion for users who prefer it
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  // High contrast mode support
+  @media (prefers-contrast: high) {
+    .btn,
+    .nav-link,
+    .card {
+      border: 2px solid currentColor;
+    }
+  }
+}
+
+// ==========================================================================
+// Responsive Breakpoint Mixins
+// ==========================================================================
+
+// Mobile Breakpoint Application
+@mixin mobile-responsive {
+  @include mobile {
+    @include mobile-app-experience;
+
+    // Additional mobile-specific overrides
+    .container {
+      padding: 0 var(--spacing-md);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    // Mobile navigation enhancements
+    .nav {
+      height: var(--nav-height-mobile);
+      
+      &.scrolled {
+        height: calc(var(--nav-height-mobile) - 5px);
+      }
+    }
+
+    // Mobile hero section optimizations
+    .hero-container {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+      text-align: center;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+      
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    // Mobile about section
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+    }
+
+    .about-image-wrapper {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    // Mobile experience section
+    .timeline {
+      padding-left: var(--spacing-lg);
+    }
+
+    // Mobile projects section
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+
+    .project-card {
+      aspect-ratio: 16/9;
+    }
+
+    // Mobile form optimizations
+    form {
+      padding: var(--spacing-md);
+    }
+
+    // Mobile footer adjustments
+    .footer {
+      text-align: center;
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+      }
+    }
+
+    // Mobile utility classes
+    .text-center-mobile {
+      text-align: center;
+    }
+    
+    .hide-mobile {
+      display: none !important;
+    }
+
+    // Modal optimizations for mobile
+    .modal-content {
+      width: 95%;
+      max-height: 90vh;
+    }
+
+    .modal-project-view {
+      flex-direction: column;
+    }
+
+    .modal-project-container {
+      order: -1;
+    }
+
+    .modal-project-links {
+      flex-direction: column;
+    }
+
+    .modal-projects-grid {
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+  }
+}
+
+// Tablet Breakpoint Application
+@mixin tablet-responsive {
+  @include tablet {
+    // Tablet-specific grid adjustments
+    .about-grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--spacing-xl);
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    // Tablet navigation
+    .nav-menu {
+      gap: var(--spacing-md);
+    }
+
+    // Tablet container padding
+    .container {
+      padding: 0 var(--spacing-xl);
+    }
+
+    // Tablet typography
+    .section-title {
+      font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    }
+
+    // Tablet form elements
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    // Tablet modal adjustments
+    .modal-project-media {
+      height: 300px;
+    }
+  }
+}
+
+// Desktop Breakpoint Application
+@mixin desktop-responsive {
+  @include desktop {
+    // Hover effects only on desktop
+    .nav-link:hover .nav-indicator {
+      width: 100%;
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .social-link:hover {
+      transform: translateY(-2px);
+      color: var(--text-primary);
+    }
+
+    .skill-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    // Desktop-only elements
+    .mobile-only {
+      display: none;
+    }
+    
+    .desktop-only {
+      display: block;
+    }
+
+    // Desktop grid optimizations
+    .about-grid {
+      grid-template-columns: 1fr 1.5fr;
+      gap: var(--spacing-2xl);
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    // Desktop animations
+    .fade-in-desktop {
+      animation: fadeIn var(--transition-slow) ease-in;
+    }
+
+    // Desktop navigation enhancements
+    .nav-menu {
+      gap: var(--spacing-lg);
+    }
+
+    // Desktop hero section
+    .hero-container {
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--spacing-2xl);
+      text-align: left;
+    }
+
+    .hero-actions {
+      flex-direction: row;
+      justify-content: flex-start;
+      
+      .btn {
+        width: auto;
+      }
+    }
+  }
+}
+
+// Large Desktop Breakpoint
+@mixin large-desktop-responsive {
+  @media (min-width: 1440px) {
+    .container {
+      max-width: 1400px;
+    }
+
+    .hero-container {
+      gap: var(--spacing-3xl);
+    }
+
+    .about-grid {
+      gap: var(--spacing-3xl);
+    }
+
+    // Enhanced animations for large screens
+    .parallax-element {
+      transition: transform 0.3s ease-out;
+    }
+  }
+}
+
+// ==========================================================================
+// Apply All Responsive Breakpoints
+// ==========================================================================
+
+@include mobile-responsive;
+@include tablet-responsive;
+@include desktop-responsive;
+@include large-desktop-responsive;

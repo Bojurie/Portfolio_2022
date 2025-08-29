@@ -1,0 +1,127 @@
+// src/App.scss
+
+// Import variables and mixins
+@import './styles/variables';
+@import './styles/mixins';
+
+// Layout
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  padding-top: var(--nav-height);
+  overflow-x: hidden;
+}
+
+// Mobile app-like experience
+@include mobile {
+  .app {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-overflow-scrolling: touch;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  .main-content {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+// Basic reset styles
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  
+  @include mobile {
+    font-size: 14px;
+  }
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+// Focus styles for accessibility
+*:focus {
+  @include focus-ring;
+}
+
+// Selection styles
+::selection {
+  background: var(--primary-400);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: var(--primary-400);
+  color: var(--text-primary);
+}
+
+// Scrollbar styles
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-600);
+  border-radius: var(--radius-full);
+  
+  &:hover {
+    background: var(--primary-500);
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// High contrast support
+@media (prefers-contrast: high) {
+  :root {
+    --border-primary: rgba(255, 255, 255, 0.5);
+    --text-secondary: #ffffff;
+  }
+}
+
+// Print styles
+@media print {
+  .app {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .main-content {
+    padding-top: 0;
+  }
+}

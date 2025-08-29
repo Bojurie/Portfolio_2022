@@ -1,0 +1,143 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+
+import Home from "./component/pages/Home";
+import About from "./component/pages/About";
+import Projects from "./component/pages/Project";
+import Contact from "./component/pages/Contact";
+import Resume from "./component/pages/Resume";
+import Header from "./component/Header";
+import Footer from "./component/pages/Footer";
+import Experience from "./component/pages/Experience";
+
+import "./App.scss";
+
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.16, 0.77, 0.47, 0.97],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Home />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <About />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/projects"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Projects />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/experience"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Experience />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Contact />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/resume"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Resume />
+            </motion.div>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      <div className="app">
+        <Header />
+        <main className="main-content">
+          <AnimatedRoutes />
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  );
+};
+
+export default App;

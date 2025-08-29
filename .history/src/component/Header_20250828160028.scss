@@ -1,0 +1,21 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--z-fixed);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.8);
+  border-bottom: 1px solid var(--border-primary);
+  transition: all var(--transition-normal);
+  
+  @include mobile {
+    background: rgba(15, 23, 42, 0.95);
+  }
+  
+  &.scrolled {
+    background: rgba(15, 23, 42, 0.95);
+    box-shadow: var(--shadow-lg);
+  }
+}

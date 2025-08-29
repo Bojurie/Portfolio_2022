@@ -1,0 +1,84 @@
+// Media Queries
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 769px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
+
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// Utilities
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-primary);
+}
+
+@mixin gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@mixin focus-ring {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 2px;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin multi-line-truncate($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Animations
+@mixin fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-normal);
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@mixin scale-hover {
+  transition: transform var(--transition-fast);
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// Mobile app specific
+@mixin mobile-app-style {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+  
+  @content;
+}

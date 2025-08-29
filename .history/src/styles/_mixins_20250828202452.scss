@@ -1,0 +1,371 @@
+// src/styles/mixins.scss
+
+// ==========================================================================
+// Media Query Mixins
+// ==========================================================================
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$mobile + 1px}) and (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$tablet + 1px}) {
+    @content;
+  }
+}
+
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
+  }
+}
+
+// ==========================================================================
+// Utility Mixins
+// ==========================================================================
+
+// Glass effect
+@mixin glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+// Gradient text
+@mixin gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-fill-color: transparent;
+}
+
+// Focus ring for accessibility
+@mixin focus-ring {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 2px;
+}
+
+// Text truncation
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Multi-line truncation
+@mixin multi-line-truncate($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Visually hidden (for screen readers)
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ==========================================================================
+// Animation Mixins
+// ==========================================================================
+
+// Fade in up animation
+@mixin fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-normal);
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Scale on hover
+@mixin scale-hover {
+  transition: transform var(--transition-fast);
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Pulse animation
+@mixin pulse {
+  animation: pulse 2s infinite;
+}
+
+// Float animation
+@mixin float {
+  animation: float 6s ease-in-out infinite;
+}
+
+// ==========================================================================
+// Mobile App Specific Mixins
+// ==========================================================================
+
+// Mobile app style base
+@mixin mobile-app-style {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  @content;
+}
+
+// Safe area padding
+@mixin safe-area-padding {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+// Safe area margin
+@mixin safe-area-margin {
+  margin-left: env(safe-area-inset-left);
+  margin-right: env(safe-area-inset-right);
+  margin-bottom: env(safe-area-inset-bottom);
+}
+
+// ==========================================================================
+// Component Mixins
+// ==========================================================================
+
+// Button base styles
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 44px;
+  min-width: 44px;
+  font-size: var(--text-base);
+  line-height: 1;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  @include mobile {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+// Primary button variant
+@mixin button-primary {
+  @include button-base;
+  background: var(--gradient-primary);
+  color: var(--text-on-primary);
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+// Secondary button variant
+@mixin button-secondary {
+  @include button-base;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+  
+  &:hover:not(:disabled) {
+    background: var(--bg-secondary);
+    transform: translateY(-1px);
+  }
+}
+
+// Card base styles
+@mixin card-base {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--border-accent);
+  }
+}
+
+// ==========================================================================
+// Layout Mixins
+// ==========================================================================
+
+// Grid system
+@mixin grid($columns: 12, $gap: var(--spacing-lg)) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+// Grid column span
+@mixin grid-col($span: 1) {
+  grid-column: span $span;
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// ==========================================================================
+// Responsive Design Mixins
+// ==========================================================================
+
+// Mobile app experience
+@mixin mobile-app-experience {
+  // Touch-friendly tap targets
+  .nav-link,
+  .btn,
+  .social-link,
+  .skill-item,
+  .project-card,
+  .tech-tag,
+  .theme-toggle,
+  .nav-toggle {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    // Enhanced touch feedback
+    &:active {
+      transform: scale(0.97);
+      transition: transform var(--transition-fast);
+    }
+  }
+
+  // Form elements optimization
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px;
+    border-radius: var(--radius-md);
+    
+    &:focus {
+      @include focus-ring;
+    }
+  }
+
+  // Improved scrolling
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-top: calc(var(--nav-height-mobile) + var(--spacing-md));
+  }
+
+  body {
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  // Safe area insets
+  .app {
+    @include safe-area-padding;
+  }
+
+  // Main content adjustments
+  .main-content {
+    padding-top: var(--nav-height-mobile);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  // Enhanced touch feedback
+  .interactive-element {
+    transition: all var(--transition-fast);
+    
+    &:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+  }
+
+  // Swipe gestures
+  .swipe-container {
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  // Mobile navigation
+  .nav-mobile {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  // Image optimization
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

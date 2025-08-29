@@ -1,0 +1,94 @@
+// src/component/pages/home.scss
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.home {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  
+  > section {
+    scroll-margin-top: calc(var(--nav-height) + var(--spacing-lg));
+    padding: var(--spacing-2xl) 0;
+    
+    @include mobile {
+      scroll-margin-top: calc(var(--nav-height-mobile) + var(--spacing-md));
+      padding: var(--spacing-xl) 0;
+    }
+  }
+}
+
+.home-content {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  
+  @include mobile {
+    padding: 0 var(--spacing-md);
+  }
+}
+
+// Section spacing variations
+.home-section-hero {
+  padding: calc(var(--nav-height) + var(--spacing-2xl)) 0 var(--spacing-2xl) !important;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  
+  @include mobile {
+    padding: calc(var(--nav-height-mobile) + var(--spacing-xl)) 0 var(--spacing-xl) !important;
+    min-height: 100dvh;
+  }
+}
+
+.home-section-regular {
+  padding: var(--spacing-3xl) 0;
+  
+  @include mobile {
+    padding: var(--spacing-2xl) 0;
+  }
+}
+
+.home-section-alt {
+  background: var(--bg-secondary);
+  padding: var(--spacing-3xl) 0;
+  
+  @include mobile {
+    padding: var(--spacing-2xl) 0;
+  }
+}
+
+// Smooth scrolling for mobile
+@include mobile {
+  .home {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// Reduced motion support
+@include reduced-motion {
+  .home {
+    > section {
+      scroll-margin-top: var(--nav-height);
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .home-section-hero {
+    min-height: auto;
+    padding: var(--spacing-xl) 0 !important;
+  }
+  
+  .home-section-regular,
+  .home-section-alt {
+    padding: var(--spacing-xl) 0;
+    break-inside: avoid;
+  }
+}

@@ -1,0 +1,104 @@
+// src/styles/mobile-mixins.scss
+@import './variables';
+@import './mixins';
+
+// ==========================================================================
+// Mobile App Experience Mixins
+// ==========================================================================
+
+// Core Mobile App Experience
+@mixin mobile-app-experience {
+  // Touch-friendly tap targets
+  .nav-link,
+  .btn,
+  .social-link,
+  .skill-item,
+  .project-card,
+  .tech-tag,
+  .theme-toggle,
+  .nav-toggle {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    &:active {
+      transform: scale(0.97);
+      transition: transform var(--transition-fast);
+    }
+  }
+
+  // Form elements optimization
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px;
+    border-radius: var(--radius-md);
+    
+    &:focus {
+      @include focus-ring;
+    }
+  }
+
+  // Improved scrolling
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-top: calc(var(--nav-height-mobile) + var(--spacing-md));
+  }
+
+  body {
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  // Safe area insets
+  .app {
+    @include safe-area-padding;
+  }
+
+  // Main content adjustments
+  .main-content {
+    padding-top: var(--nav-height-mobile);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  // Enhanced touch feedback
+  .interactive-element {
+    transition: all var(--transition-fast);
+    
+    &:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+  }
+
+  // Swipe gestures
+  .swipe-container {
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  // Mobile navigation
+  .nav-mobile {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  // Image optimization
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// Mobile Breakpoint Application
+@mixin mobile-app-experience-apply {
+  @include mobile {
+    @include mobile-app-experience;
+  }
+}

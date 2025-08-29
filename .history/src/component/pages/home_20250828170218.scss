@@ -1,0 +1,90 @@
+// src/component/pages/_home.scss
+@import '../../styles/variables'; // Fixed import path
+
+.home {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  
+  > section {
+    scroll-margin-top: calc(var(--nav-height) + var(--spacing-lg));
+    padding: var(--spacing-2xl) 0;
+    
+    @include mobile {
+      scroll-margin-top: calc(var(--nav-height) + var(--spacing-md));
+      padding: var(--spacing-xl) 0;
+    }
+  }
+}
+
+// Ensure sections have proper spacing and layout
+.home-section {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  width: 100%;
+}
+
+// Smooth scrolling for the entire app
+html {
+  scroll-behavior: smooth;
+}
+
+// Smooth scrolling for mobile
+@include mobile {
+  .home {
+    // iOS specific smooth scrolling
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .home {
+    > section {
+      scroll-margin-top: var(--nav-height);
+    }
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+// Additional utility styles for home page
+.home-content {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+// Section spacing variations
+.home-section-hero {
+  padding: calc(var(--nav-height) + var(--spacing-2xl)) 0 var(--spacing-2xl) !important;
+  
+  @include mobile {
+    padding: calc(var(--nav-height) + var(--spacing-xl)) 0 var(--spacing-xl) !important;
+  }
+}
+
+.home-section-regular {
+  padding: var(--spacing-3xl) 0;
+  
+  @include mobile {
+    padding: var(--spacing-2xl) 0;
+  }
+}
+
+.home-section-alt {
+  background: var(--bg-secondary);
+  padding: var(--spacing-3xl) 0;
+  
+  @include mobile {
+    padding: var(--spacing-2xl) 0;
+  }
+}
