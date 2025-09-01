@@ -1,0 +1,31 @@
+// src/component/header.scss
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--z-fixed);
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-primary);
+  transition: all var(--transition-normal);
+  
+  @include mobile {
+    background: rgba(15, 23, 42, 0.98);
+  }
+  
+  &.scrolled {
+    background: rgba(15, 23, 42, 0.98);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@include reduced-motion {
+  .header {
+    transition: none;
+  }
+}

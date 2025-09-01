@@ -1,0 +1,112 @@
+// src/component/pages/home.scss
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+// ==========================================================================
+// Home Page Styles
+// ==========================================================================
+
+.home {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  
+  // Section base styles
+  > section {
+    scroll-margin-top: calc(var(--nav-height) + var(--spacing-lg));
+    padding: var(--spacing-2xl) 0;
+    
+    @include mobile {
+      scroll-margin-top: calc(var(--nav-height-mobile) + var(--spacing-md));
+      padding: var(--spacing-xl) 0;
+    }
+  }
+}
+
+// Home content container
+.home-content {
+  @extend .container; // Use the container mixin
+}
+
+// ==========================================================================
+// Section Variations
+// ==========================================================================
+
+.home-section {
+  &-hero {
+    @extend .section;
+    padding: calc(var(--nav-height) + var(--spacing-2xl)) 0 var(--spacing-2xl) !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    
+    @include mobile {
+      padding: calc(var(--nav-height-mobile) + var(--spacing-xl)) 0 var(--spacing-xl) !important;
+      min-height: 100dvh;
+    }
+  }
+  
+  &-regular {
+    @extend .section;
+    padding: var(--spacing-3xl) 0;
+    
+    @include mobile {
+      padding: var(--spacing-2xl) 0;
+    }
+  }
+  
+  &-alt {
+    @extend .section;
+    @extend .section-alt;
+    padding: var(--spacing-3xl) 0;
+    
+    @include mobile {
+      padding: var(--spacing-2xl) 0;
+    }
+  }
+}
+
+// ==========================================================================
+// Mobile Optimizations
+// ==========================================================================
+
+@include mobile {
+  .home {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// ==========================================================================
+// Reduced Motion Support
+// ==========================================================================
+
+@include reduced-motion {
+  .home {
+    > section {
+      scroll-margin-top: var(--nav-height);
+    }
+  }
+}
+
+// ==========================================================================
+// Print Styles
+// ==========================================================================
+
+@media print {
+  .home-section {
+    &-hero {
+      min-height: auto;
+      padding: var(--spacing-xl) 0 !important;
+    }
+    
+    &-regular,
+    &-alt {
+      padding: var(--spacing-xl) 0;
+      break-inside: avoid;
+    }
+  }
+}

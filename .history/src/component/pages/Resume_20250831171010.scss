@@ -1,0 +1,457 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.resume-section {
+  position: relative;
+  padding: var(--spacing-3xl) 0;
+  background-color: var(--bg-secondary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  
+  @include mobile {
+    padding: var(--spacing-2xl) 0;
+    min-height: 100dvh;
+  }
+}
+
+.resume-content {
+  margin-top: var(--spacing-2xl);
+  width: 100%;
+}
+
+.resume-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-lg);
+  }
+}
+
+.download-btn {
+  @include button-primary;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  
+  .download-icon {
+    font-size: 1.1rem;
+  }
+  
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+    order: 2;
+  }
+}
+
+.view-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  flex-wrap: wrap;
+  
+  @include mobile {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    width: 100%;
+    order: 1;
+  }
+  
+  @include tablet {
+    gap: var(--spacing-lg);
+  }
+}
+
+.device-presets {
+  display: flex;
+  gap: var(--spacing-xs);
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xs);
+  
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.device-btn {
+  @include button-secondary;
+  padding: var(--spacing-sm);
+  min-width: auto;
+  border-radius: var(--radius-md);
+  
+  &:hover {
+    background: var(--bg-tertiary);
+  }
+  
+  &.active {
+    background: var(--primary-400);
+    color: var(--text-on-primary);
+  }
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-sm);
+  
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.control-btn {
+  @include button-secondary;
+  padding: var(--spacing-sm);
+  min-width: auto;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  
+  &:hover:not(:disabled) {
+    background: var(--bg-tertiary);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.zoom-level {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  min-width: 50px;
+  text-align: center;
+}
+
+.pdf-container {
+  position: relative;
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  min-height: 500px;
+  
+  @include mobile {
+    border-radius: var(--radius-lg);
+    min-height: 400px;
+  }
+}
+
+.pdf-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3xl);
+  color: var(--text-muted);
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-primary);
+    border-top: 3px solid var(--primary-400);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+.pdf-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3xl);
+  text-align: center;
+  color: var(--text-muted);
+  
+  p {
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--text-lg);
+  }
+}
+
+.error-download-btn {
+  @include button-primary;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+}
+
+.pdf-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl);
+  min-height: 500px;
+  
+  @include mobile {
+    padding: var(--spacing-md);
+    min-height: 400px;
+  }
+}
+
+.pdf-page {
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+  
+  canvas {
+    max-width: 100%;
+    height: auto !important;
+    border-radius: var(--radius-md);
+  }
+}
+
+.page-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: var(--text-muted);
+}
+
+.pdf-controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.page-navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  
+  @include mobile {
+    gap: var(--spacing-xl);
+  }
+}
+
+.nav-button {
+  @include button-secondary;
+  padding: var(--spacing-md);
+  min-width: auto;
+  border-radius: var(--radius-full);
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  @include mobile {
+    padding: var(--spacing-lg);
+  }
+}
+
+.page-info {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  font-weight: var(--font-medium);
+  
+  .current-page {
+    color: var(--text-primary);
+    font-weight: var(--font-semibold);
+  }
+  
+  .total-pages {
+    color: var(--text-muted);
+  }
+}
+
+.mobile-swipe-hint {
+  display: none;
+  
+  @include mobile {
+    display: block;
+    text-align: center;
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    padding: var(--spacing-sm);
+    background: var(--bg-surface);
+    border-radius: var(--radius-full);
+    animation: pulse 2s infinite;
+  }
+}
+
+.resume-footer {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+}
+
+.resume-note {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Animations
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+// Touch device optimizations
+@media (hover: none) {
+  .device-btn:hover,
+  .control-btn:hover,
+  .nav-button:hover {
+    transform: none;
+    background: var(--bg-surface);
+  }
+  
+  .download-btn:hover {
+    transform: none;
+  }
+}
+
+// Reduced motion support
+@include reduced-motion {
+  .download-btn,
+  .nav-button {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+  
+  .loading-spinner {
+    animation: none;
+    border-top-color: var(--text-muted);
+  }
+  
+  .mobile-swipe-hint {
+    animation: none;
+  }
+}
+
+// High contrast support
+@include high-contrast {
+  .pdf-container {
+    border: 2px solid var(--border-primary);
+  }
+  
+  .device-presets,
+  .zoom-controls {
+    border: 1px solid var(--border-primary);
+  }
+  
+  .device-btn,
+  .control-btn,
+  .nav-button {
+    border: 1px solid currentColor;
+  }
+}
+
+// Print styles
+@media print {
+  .resume-header,
+  .pdf-controls,
+  .resume-footer {
+    display: none !important;
+  }
+  
+  .pdf-container {
+    border: none;
+    box-shadow: none;
+    background: white !important;
+  }
+  
+  .resume-section {
+    background: white !important;
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+}
+
+// Very small devices
+@media (max-width: 360px) {
+  .view-controls {
+    gap: var(--spacing-sm);
+  }
+  
+  .device-presets,
+  .zoom-controls {
+    padding: var(--spacing-xs);
+  }
+  
+  .device-btn,
+  .control-btn {
+    padding: var(--spacing-xs);
+    font-size: var(--text-xs);
+  }
+  
+  .zoom-level {
+    font-size: var(--text-xs);
+    min-width: 40px;
+  }
+  
+  .pdf-viewer {
+    padding: var(--spacing-sm);
+  }
+}
+
+// Landscape orientation support
+@media (max-width: 768px) and (orientation: landscape) {
+  .resume-section {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  .pdf-container {
+    min-height: 300px;
+  }
+  
+  .pdf-viewer {
+    min-height: 300px;
+    padding: var(--spacing-md);
+  }
+  
+  .pdf-page canvas {
+    max-height: 200px;
+  }
+}
+
+// Large screens optimization
+@media (min-width: 1600px) {
+  .pdf-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

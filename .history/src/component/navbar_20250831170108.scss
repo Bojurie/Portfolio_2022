@@ -1,0 +1,634 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background: transparent;
+  transition: all var(--transition-normal);
+  z-index: var(--z-fixed);
+  @include safe-area-padding;
+  
+  &.scrolled {
+    height: calc(var(--nav-height) - 10px);
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-primary);
+  }
+  
+  @include mobile {
+    height: var(--nav-height-mobile);
+    
+    &.scrolled {
+      height: calc(var(--nav-height-mobile) - 5px);
+    }
+  }
+}
+
+.nav-container {
+  max-width: var(--container-max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  gap: var(--spacing-lg);
+}
+
+// Logo
+.logo {
+  z-index: var(--z-fixed);
+  flex-shrink: 0;
+  
+  .logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  .logo-text {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+  }
+  
+  .logo-gradient {
+    @include gradient-text;
+  }
+  
+  @include mobile {
+    .logo-text {
+      font-size: var(--text-xl);
+    }
+  }
+}
+
+// Desktop Navigation
+.nav-menu {
+  display: flex;
+  gap: var(--spacing-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+  @include mobile {
+    display: none;
+  }
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  position: relative;
+  min-height: 44px;
+  
+  &:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface);
+  }
+  
+  &.active {
+    color: var(--text-primary);
+    
+    .nav-indicator {
+      width: 100%;
+      opacity: 1;
+    }
+  }
+}
+
+.nav-indicator {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-normal);
+  opacity: 0;
+}
+
+.nav-icon {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+// Right side container
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+// Social Links
+.nav-social {
+  display: flex;
+  gap: var(--spacing-sm);
+  
+  @include mobile {
+    display: none;
+  }
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  min-width: 44px;
+  min-height: 44px;
+  
+  &:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface);
+    transform: translateY(-2px);
+  }
+}
+
+// ==========================================================================
+// Theme Toggle - Optimized for Performance
+// ==========================================================================
+.theme-toggle-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  
+  // Focus styles for accessibility
+  &:focus {
+    @include focus-ring;
+    outline-offset: 2px;
+  }
+  
+  &:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface);
+  }
+  
+  // Active state for better feedback
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  // Animation for smooth icon transitions
+  svg {
+    transition: transform var(--transition-fast);
+  }
+  
+  // Pulsing animation for auto mode
+  &[data-theme-mode="auto"] {
+    animation: pulse-gentle 2s ease-in-out infinite;
+    
+    &:hover {
+      animation: none;
+    }
+  }
+}
+
+// Theme options dropdown
+.theme-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--spacing-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-sm);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: var(--z-dropdown);
+  min-width: 120px;
+  
+  // Arrow pointing to toggle button
+  &::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    width: 12px;
+    height: 12px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-primary);
+    border-left: 1px solid var(--border-primary);
+    transform: rotate(45deg);
+  }
+  
+  @include mobile {
+    right: -50%;
+    transform: translateX(50%);
+    
+    &::before {
+      right: 50%;
+      transform: translateX(50%) rotate(45deg);
+    }
+  }
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--text-sm);
+  text-align: left;
+  
+  &:hover {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+  }
+  
+  &.active {
+    background: rgba(58, 134, 255, 0.1);
+    color: var(--primary-400);
+    font-weight: var(--font-semibold);
+  }
+  
+  // Focus styles
+  &:focus {
+    @include focus-ring;
+    outline-offset: -2px;
+  }
+}
+
+// Mobile Toggle
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  z-index: var(--z-fixed);
+  min-width: 44px;
+  min-height: 44px;
+  
+  &:hover {
+    background: var(--bg-surface);
+  }
+  
+  &:focus {
+    @include focus-ring;
+  }
+  
+  @include mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Mobile Navigation
+.nav-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: var(--z-modal);
+}
+
+.nav-mobile {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  z-index: var(--z-modal);
+  box-shadow: var(--shadow-2xl);
+  display: flex;
+  flex-direction: column;
+  
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.nav-mobile-content {
+  padding: calc(var(--nav-height-mobile) + var(--spacing-xl)) var(--spacing-xl) var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  @include safe-area-padding;
+}
+
+.nav-mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-primary);
+  margin-bottom: var(--spacing-lg);
+  
+  .mobile-logo {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    @include gradient-text;
+  }
+  
+  .mobile-close {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    
+    &:focus {
+      @include focus-ring;
+    }
+  }
+}
+
+.nav-mobile-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex: 1;
+}
+
+.nav-mobile-item {
+  width: 100%;
+}
+
+.nav-mobile-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  font-weight: var(--font-medium);
+  min-height: 48px;
+  
+  &:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface);
+  }
+  
+  &.active {
+    color: var(--text-primary);
+    background: var(--bg-surface);
+  }
+  
+  &:focus {
+    @include focus-ring;
+  }
+}
+
+.nav-mobile-social {
+  margin-top: auto;
+  padding-top: var(--spacing-xl);
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.nav-mobile-footer {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--border-primary);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.mobile-theme-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  
+  .theme-option {
+    justify-content: center;
+    padding: var(--spacing-md);
+    font-size: var(--text-base);
+    
+    @include mobile {
+      padding: var(--spacing-sm);
+      font-size: var(--text-sm);
+    }
+  }
+}
+
+// Mobile specific styles
+@include mobile {
+  .nav-mobile {
+    width: 100%;
+  }
+  
+  .nav-mobile-content {
+    padding: calc(var(--nav-height-mobile) + var(--spacing-lg)) var(--spacing-lg) var(--spacing-lg);
+  }
+  
+  // Optimize theme toggle for mobile
+  .theme-toggle {
+    // Slightly larger tap target on mobile
+    min-width: 48px;
+    min-height: 48px;
+    
+    // More prominent hover effect
+    &:active {
+      background: var(--bg-tertiary);
+      transform: scale(0.9);
+    }
+  }
+}
+
+// ==========================================================================
+// Animations
+// ==========================================================================
+@keyframes pulse-gentle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+// ==========================================================================
+// Reduced Motion Support
+// ==========================================================================
+@include reduced-motion {
+  .nav-link,
+  .social-link,
+  .nav-toggle,
+  .theme-toggle,
+  .theme-option {
+    transition: none;
+    
+    &:hover,
+    &:active {
+      transform: none;
+    }
+  }
+  
+  .theme-toggle[data-theme-mode="auto"] {
+    animation: none;
+  }
+  
+  .nav-indicator {
+    transition: none;
+  }
+}
+
+// ==========================================================================
+// High Contrast Support
+// ==========================================================================
+@include high-contrast {
+  .nav-link,
+  .nav-mobile-link {
+    border: 1px solid transparent;
+    
+    &:hover,
+    &.active {
+      border-color: var(--border-primary);
+    }
+  }
+  
+  .theme-toggle {
+    border: 1px solid currentColor;
+    
+    &:focus {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+  
+  .theme-options {
+    border: 2px solid var(--border-primary);
+    
+    &::before {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-primary);
+      border-right: none;
+      border-bottom: none;
+    }
+  }
+  
+  .theme-option {
+    border: 1px solid transparent;
+    
+    &:hover,
+    &.active {
+      border-color: currentColor;
+    }
+  }
+}
+
+// ==========================================================================
+// Touch Device Optimizations
+// ==========================================================================
+@media (hover: none) {
+  .theme-toggle:hover {
+    background: transparent;
+  }
+  
+  .theme-option:hover {
+    background: transparent;
+  }
+  
+  // More prominent active states for touch devices
+  .theme-toggle:active {
+    background: var(--bg-surface);
+    transform: scale(0.9);
+  }
+  
+  .theme-option:active {
+    background: var(--bg-surface);
+  }
+}
+
+// ==========================================================================
+// Performance Optimizations
+// ==========================================================================
+// Will-change for smooth animations
+.theme-toggle,
+.theme-options,
+.nav-link,
+.social-link {
+  will-change: transform, opacity, background-color;
+}
+
+// Hardware acceleration for smooth transitions
+.nav-mobile {
+  transform: translateZ(0);
+}
+
+// ==========================================================================
+// Print Styles
+// ==========================================================================
+@media print {
+  .theme-toggle-container,
+  .nav-toggle,
+  .nav-mobile-footer {
+    display: none !important;
+  }
+}

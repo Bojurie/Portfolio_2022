@@ -1,0 +1,595 @@
+// src/component/pages/project.scss
+
+// Variables
+$mobile: 768px;
+$tablet: 1024px;
+
+// Mixins
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// Projects Section
+.section.projects {
+  padding: 4rem 0;
+  background: var(--bg-primary);
+  
+  @include mobile {
+    padding: 2rem 0;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @include mobile {
+    padding: 0 0.5rem;
+  }
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  
+  .highlight {
+    color: var(--primary-400);
+  }
+  
+  @include mobile {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Project Tabs
+.project-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  
+  @include mobile {
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  
+  &:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+  
+  &.active {
+    background: var(--primary-400);
+    color: var(--text-on-primary);
+    border-color: var(--primary-400);
+  }
+  
+  @include mobile {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+// Project Grid
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    
+    .project-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @include reduced-motion {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.project-media {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .image-fallback {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-surface);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text-muted);
+    
+    svg {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+  opacity: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  transform: translateY(10px);
+  
+  @include mobile {
+    opacity: 1;
+    transform: translateY(0);
+    padding: 1rem;
+  }
+}
+
+.overlay-content {
+  width: 100%;
+}
+
+.project-description {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  
+  @include mobile {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2;
+  }
+}
+
+.project-links {
+  display: flex;
+  gap: 0.5rem;
+  
+  @include mobile {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: var(--primary-400);
+    color: var(--text-on-primary);
+    border-color: var(--primary-400);
+  }
+  
+  @include mobile {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    justify-content: center;
+  }
+}
+
+.project-info {
+  padding: 1rem;
+  
+  @include mobile {
+    padding: 0.75rem;
+  }
+}
+
+.project-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  
+  @include mobile {
+    font-size: 1rem;
+  }
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.project-tag {
+  padding: 0.25rem 0.5rem;
+  background: rgba(58, 134, 255, 0.1);
+  color: var(--primary-400);
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  
+  @include mobile {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+// Modal Styles
+.projects-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  
+  @include mobile {
+    padding: 0;
+    align-items: flex-end;
+  }
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  border-radius: 1.5rem;
+  border: 1px solid var(--border-primary);
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  
+  @include mobile {
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    max-width: 100%;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: var(--primary-400);
+    color: var(--text-on-primary);
+  }
+  
+  @include mobile {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.modal-header {
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--border-primary);
+  
+  h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    
+    @include mobile {
+      font-size: 1.25rem;
+    }
+  }
+  
+  @include mobile {
+    padding: 1.5rem 1rem 0.75rem;
+  }
+}
+
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  
+  span {
+    padding: 0.25rem 0.75rem;
+    background: rgba(58, 134, 255, 0.1);
+    color: var(--primary-400);
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    
+    @include mobile {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+}
+
+.modal-body {
+  padding: 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  
+  @include mobile {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-image {
+  aspect-ratio: 16/9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--bg-surface);
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .image-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text-muted);
+    
+    svg {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.modal-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+  
+  @include mobile {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.modal-links {
+  display: flex;
+  gap: 1rem;
+  
+  @include mobile {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &.primary {
+    background: var(--primary-400);
+    color: var(--text-on-primary);
+    
+    &:hover {
+      background: var(--primary-500);
+    }
+  }
+  
+  &.secondary {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+    
+    &:hover {
+      background: var(--bg-secondary);
+    }
+  }
+  
+  @include mobile {
+    padding: 0.75rem 1rem;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+}
+
+.modal-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border-primary);
+  
+  @include mobile {
+    padding: 1rem;
+  }
+}
+
+.nav-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: var(--primary-400);
+    color: var(--text-on-primary);
+  }
+  
+  @include mobile {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.nav-indicator {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+// Reduced motion support
+@include reduced-motion {
+  .project-card,
+  .project-overlay,
+  .modal-content,
+  .nav-button,
+  .modal-link {
+    transition: none;
+  }
+  
+  .project-card:hover {
+    transform: none;
+  }
+}
+
+// High contrast support
+@media (prefers-contrast: high) {
+  .project-card,
+  .modal-content {
+    border: 2px solid var(--border-primary);
+  }
+  
+  .project-link,
+  .modal-link.secondary {
+    border: 2px solid currentColor;
+  }
+}
+
+// Print styles
+@media print {
+  .projects-modal {
+    display: none !important;
+  }
+  
+  .project-card {
+    break-inside: avoid;
+    border: 1px solid #ccc;
+    box-shadow: none !important;
+  }
+}
