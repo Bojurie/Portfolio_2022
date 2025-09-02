@@ -1,0 +1,296 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+// Base utilities
+.btn {
+  @include button-base;
+  &--primary { @include button-primary; }
+  &--secondary { @include button-secondary; }
+}
+
+.projects-page {
+  // align with global section spacing
+  padding-top: calc(var(--nav-height) + var(--spacing-2xl));
+  padding-bottom: var(--spacing-3xl);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+
+  .container {
+    max-width: var(--container-max-width);
+    padding: 0 var(--container-padding);
+    margin: 0 auto;
+  }
+
+  &__header {
+    position: sticky;
+    top: var(--nav-height);
+    z-index: var(--z-sticky);
+    background: linear-gradient(180deg, rgba(0,0,0,0.15), transparent);
+    padding: var(--spacing-md) 0;
+
+    @include mobile {
+      top: var(--nav-height-mobile);
+      padding: var(--spacing-sm) 0;
+    }
+  }
+
+  &__header-inner {
+    @include flex-between;
+    gap: var(--spacing-md);
+  }
+
+  &__back-btn {
+    @include button-secondary;
+    padding: var(--spacing-sm);
+    min-width: auto;
+    min-height: auto;
+    border-radius: var(--radius-full);
+
+    &:focus-visible { @include focus-ring; }
+  }
+
+  &__title {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-sm);
+
+    .highlight { @include gradient-text; }
+  }
+
+  &__count {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  &__header-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+
+  &__view-toggle {
+    @include button-secondary;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: var(--radius-full);
+
+    &.grid, &.list {
+      // names preserved for potential state styling
+    }
+  }
+
+  // Controls
+  &__controls {
+    padding: var(--spacing-md) 0 var(--spacing-lg);
+    border-bottom: 1px solid var(--border-primary);
+    background: var(--bg-primary);
+    position: relative;
+    z-index: var(--z-sticky);
+  }
+
+  &__controls-grid {
+    @include grid(12, var(--spacing-md));
+    align-items: center;
+
+    @include mobile { gap: var(--spacing-sm); }
+  }
+
+  &__search {
+    @include grid-col(6);
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: 0 var(--spacing-md);
+
+    @include mobile { @include grid-col(12); }
+  }
+
+  &__search-icon {
+    margin-right: var(--spacing-sm);
+    color: var(--text-muted);
+  }
+
+  &__search-input {
+    @include input-base;
+    background: transparent;
+    border: none;
+    padding: var(--spacing-md) 0;
+    width: 100%;
+    box-shadow: none;
+
+    &:focus {
+      border: none;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  &__clear-search {
+    @include button-secondary;
+    min-width: auto;
+    min-height: auto;
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-full);
+  }
+
+  &__sort {
+    @include grid-col(3);
+    position: relative;
+
+    @include mobile { @include grid-col(6); }
+  }
+
+  &__sort-select {
+    @include input-base;
+    width: 100%;
+    appearance: none;
+    padding-right: calc(var(--spacing-xl) + 6px);
+  }
+
+  &__select-arrow {
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-muted);
+  }
+
+  &__filter-toggle {
+    @include grid-col(3);
+    @include button-secondary;
+    justify-self: end;
+
+    @include mobile { @include grid-col(6); }
+
+    &.is-active {
+      border-color: var(--border-accent);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+  }
+
+  // Mobile filters sheet
+  &__mobile-filters {
+    margin-top: var(--spacing-md);
+    overflow: hidden;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    @include glass-effect;
+  }
+
+  // Desktop filters row
+  &__desktop-filters {
+    padding: var(--spacing-md) 0;
+    background: var(--bg-primary);
+  }
+
+  // Results
+  &__results {
+    padding-top: var(--spacing-lg);
+  }
+
+  &__list {
+    display: grid;
+    gap: var(--spacing-lg);
+
+    &--grid {
+      grid-template-columns: repeat(12, 1fr);
+
+      .projects-page__item {
+        grid-column: span 4;
+
+        @include tablet { grid-column: span 6; }
+        @include mobile { grid-column: span 12; }
+      }
+    }
+
+    &--list {
+      grid-template-columns: 1fr;
+
+      .projects-page__item {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  &__item {
+    // card wrapper if you need hover effects on the item level
+  }
+
+  &__empty {
+    @include flex-center;
+    text-align: center;
+    padding: var(--spacing-2xl) 0;
+  }
+
+  &__empty-inner {
+    max-width: 520px;
+    margin: 0 auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    @include glass-effect;
+
+    h3 { margin: 0 0 var(--spacing-sm); }
+    p { color: var(--text-secondary); margin-bottom: var(--spacing-md); }
+  }
+
+  &__empty-icon {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-muted);
+  }
+
+  &__results-info {
+    margin-top: var(--spacing-lg);
+    color: var(--text-secondary);
+  }
+
+  &__filter-info {
+    margin-left: var(--spacing-sm);
+    color: var(--text-muted);
+  }
+
+  &__fab {
+    position: fixed;
+    right: var(--spacing-lg);
+    bottom: var(--spacing-lg);
+    z-index: var(--z-popover);
+    @include button-primary;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border-radius: var(--radius-full);
+
+    @include mobile {
+      right: var(--spacing-md);
+      bottom: var(--spacing-md);
+    }
+  }
+}
+
+// Accessibility & preferences
+@include reduced-motion {
+  .projects-page * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@include dark-mode {
+  .projects-page {
+    // Fine-tune if needed for dark mode contrast
+  }
+}
+
+@include high-contrast {
+  .projects-page {
+    // Optional high-contrast tweaks
+  }
+}

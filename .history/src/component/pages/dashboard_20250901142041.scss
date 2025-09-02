@@ -1,0 +1,176 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.dash-view {
+  min-height: calc(100vh - var(--nav-height));
+  padding: calc(var(--spacing-xl) + var(--nav-height)) var(--spacing-lg) var(--spacing-2xl);
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include mobile {
+    min-height: 100vh;
+    padding: calc(var(--nav-height-mobile) + var(--spacing-lg)) var(--spacing-md) var(--spacing-xl);
+  }
+}
+
+.dash-header {
+  @include flex-between;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+.dash-title {
+  font-size: var(--text-3xl);
+  margin: 0;
+}
+.dash-subtitle {
+  color: var(--text-muted);
+  margin-top: var(--spacing-xs);
+}
+
+.dash-right .btn { @include button-secondary; }
+
+.dash-grid {
+  @include grid(12, var(--spacing-lg));
+  margin-bottom: var(--spacing-xl);
+
+  .kpi-card {
+    @include card-base;
+    padding: var(--spacing-lg);
+    @include grid-col(3);
+
+    @include tablet { @include grid-col(6); }
+    @include mobile { @include grid-col(12); }
+
+    .kpi-head {
+      @include flex-between;
+      margin-bottom: var(--spacing-sm);
+
+      .kpi-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: var(--radius-full);
+        display: grid;
+        place-items: center;
+        background: var(--bg-surface);
+      }
+      .kpi-label { color: var(--text-secondary); }
+    }
+
+    .kpi-value {
+      font-size: var(--text-3xl);
+      font-weight: var(--font-semibold);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .kpi-foot {
+      @include flex-between;
+      align-items: end;
+      gap: var(--spacing-md);
+
+      .trend {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: var(--font-medium);
+        &.up { color: var(--success); }
+        &.down { color: var(--error); }
+      }
+
+      .bars {
+        flex: 1;
+        display: grid;
+        grid-auto-flow: column;
+        gap: 4px;
+        height: 32px;
+        align-items: end;
+
+        span {
+          display: block;
+          width: 100%;
+          background: var(--gradient-secondary);
+          border-radius: 4px;
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+}
+
+.dash-panels {
+  @include grid(12, var(--spacing-lg));
+
+  .panel {
+    @include card-base;
+    @include grid-col(6);
+
+    @include tablet { @include grid-col(12); }
+    @include mobile { @include grid-col(12); }
+
+    .panel-title {
+      margin: 0 0 var(--spacing-md);
+      font-size: var(--text-xl);
+    }
+
+    .review-list, .ref-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--spacing-md);
+    }
+
+    .review-item {
+      padding: var(--spacing-md);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+
+      .review-head {
+        @include flex-between;
+        margin-bottom: var(--spacing-xs);
+        .review-name { font-weight: var(--font-medium); }
+        .review-rating { color: var(--warning); font-weight: var(--font-semibold); }
+      }
+
+      .review-comment { color: var(--text-secondary); }
+      .review-meta {
+        margin-top: var(--spacing-xs);
+        display: flex; gap: var(--spacing-md);
+        color: var(--text-muted);
+        font-size: var(--text-sm);
+      }
+    }
+
+    .ref-list li {
+      @include flex-between;
+      padding: var(--spacing-md);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+
+      .ref-name { @include truncate; max-width: 70%; }
+      .ref-count { font-weight: var(--font-semibold); }
+    }
+
+    .empty {
+      text-align: center;
+      padding: var(--spacing-lg);
+      color: var(--text-muted);
+    }
+  }
+}
+
+.dash-loading, .dash-error {
+  display: grid;
+  place-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-secondary);
+
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border-primary);
+    border-top-color: var(--primary-500);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+}

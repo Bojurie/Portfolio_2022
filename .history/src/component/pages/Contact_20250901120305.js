@@ -1,0 +1,291 @@
+import React, { useState, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import emailjs from "@emailjs/browser";
+import {
+  FiMail,
+  FiMapPin,
+  FiPhone,
+  FiSend,
+  FiCheck,
+  FiX,
+  FiMessageSquare,
+  FiUser,
+} from "react-icons/fi";
+import "./Contact.scss";
+
+const Contact = () => {
+  const form = useRef();
+  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }, []);
+
+  const sendEmail = useCallback((e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    emailjs
+      .sendForm(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        form.current,
+        process.env.REACT_APP_EMAILJS_USER_ID
+      )
+      .then(
+        (result) => {
+          setSubmitted(true);
+          setIsLoading(false);
+          setFormData({ name: "", email: "", message: "" });
+          setTimeout(() => setSubmitted(false), 5000);
+        },
+        (error) => {
+          console.error("Error sending message:", error);
+          setIsLoading(false);
+        }
+      );
+  }, []);
+
+  const closeSuccessMessage = useCallback(() => {
+    setSubmitted(false);
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 0.77, 0.47, 0.97],
+      },
+    },
+  };
+
+  const contactDetails = [
+    {
+      icon: <FiMail />,
+      title: "Email",
+      value: "bojurier@gmail.com",
+      link: "mailto:bojurier@gmail.com",
+    },
+    {
+      icon: <FiMapPin />,
+      title: "Location",
+      value: "California, USA",
+      link: null,
+    },
+    {
+      icon: <FiPhone />,
+      title: "Call",
+      value: "+1 (949) 919-4017",
+      link: "tel:+19499194017",
+    },
+  ];
+
+  return (
+    <section className="contact-section" id="contact">
+      <div className="contact-grid-overlay" />
+
+      <div className="contact-container">
+        <motion.h2
+          className="section-title"
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <span className="highlight">05.</span> Connect With Me
+        </motion.h2>
+
+        <motion.div
+          className="contact-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.div className="contact-info" variants={itemVariants}>
+            <div className="contact-info-content">
+              <h3 className="contact-subtitle">
+                <span className="text-gradient">Let's Build</span> The Future
+              </h3>
+
+              <motion.p className="contact-text" variants={itemVariants}>
+                Ready to discuss your next groundbreaking project? I specialize
+                in turning{" "}
+                <span className="text-highlight">visionary ideas</span> into
+                <span className="text-highlight"> digital reality</span>.
+              </motion.p>
+
+              <div className="contact-details">
+                {contactDetails.map((item, index) => (
+                  <motion.div
+                    className="contact-item"
+                    key={index}
+                    variants={itemVariants}
+                    custom={index}
+                  >
+                    <div className="contact-icon-container">{item.icon}</div>
+                    <div className="contact-item-content">
+                      <h4>{item.title}</h4>
+                      {item.link ? (
+                        <a href={item.link} className="contact-link">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <span className="contact-value">{item.value}</span>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="contact-form-container"
+            variants={itemVariants}
+          >
+            <div className="form-grid-overlay" />
+
+            <motion.form
+              ref={form}
+              onSubmit={sendEmail}
+              className="contact-form"
+              variants={itemVariants}
+            >
+              <AnimatePresence>
+                {submitted && (
+                  <motion.div
+                    className="success-message"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                  >
+                    <div className="success-message-content">
+                      <div className="success-icon-container">
+                        <FiCheck />
+                      </div>
+                      <div>
+                        <h4>Message Received!</h4>
+                        <p>I'll respond within 24 hours</p>
+                      </div>
+                      <button
+                        className="success-close"
+                        onClick={closeSuccessMessage}
+                        aria-label="Close success message"
+                      >
+                        <FiX />
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <div className="form-group">
+                <div className="input-container">
+                  <FiUser className="input-icon" />
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="form-input"
+                    placeholder="Your Name"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="input-container">
+                  <FiMail className="input-icon" />
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="form-input"
+                    placeholder="your@email.com"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="input-container">
+                  <FiMessageSquare className="input-icon" />
+                  <textarea
+                    name="message"
+                    id="message"
+                    rows={isMobile ? 4 : 5}
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="form-textarea"
+                    placeholder="Tell me about your project..."
+                    disabled={isLoading}
+                  ></textarea>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-primary form-submit"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <div className="loading-spinner"></div>
+                ) : (
+                  <>
+                    <FiSend className="button-icon" />
+                    Send Message
+                  </>
+                )}
+              </button>
+            </motion.form>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
